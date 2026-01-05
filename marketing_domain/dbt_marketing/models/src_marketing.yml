@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: marketing
+    database: MARKETING_DB
+    schema: RAW
+    tables:
+      - name: clicks_json
+        description: "Raw JSON logs from the Ad Click Generator"

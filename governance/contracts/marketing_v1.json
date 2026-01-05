@@ -1,0 +1,35 @@
+{
+  "domain": "marketing",
+  "dataset": "campaign_performance",
+  "version": "1.0",
+  "schema": [
+    {
+      "name": "CAMPAIGN_ID",
+      "type": "TEXT",
+      "description": "Unique identifier for the campaign"
+    },
+    {
+      "name": "REPORT_HOUR",
+      "type": "TIMESTAMP_NTZ",
+      "description": "Truncated hour of the report"
+    },
+    {
+      "name": "TOTAL_CLICKS",
+      "type": "NUMBER",
+      "description": "Count of valid clicks"
+    },
+    {
+      "name": "TOTAL_COST",
+      "type": "FLOAT",
+      "description": "Aggregated cost"
+    },
+    {
+      "name": "AVG_CPC",
+      "type": "FLOAT",
+      "description": "Average cost per click"
+    }
+  ],
+  "sla": {
+    "freshness": "1 hour"
+  }
+}

@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: finance
+    database: FINANCE_DB
+    schema: RAW
+    tables:
+      - name: transactions_json
+
+  # This is the Cross-Domain Source
+  - name: marketing_mesh
+    database: MARKETING_DB
+    schema: ANALYTICS
+    tables:
+      - name: campaign_performance
+        description: "Read-only access to Marketing ROI data"

@@ -1,0 +1,45 @@
+# Terraform ignore rules
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+target/
+logs/
+profiles.yml
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# --- dbt (Data Build Tool) ---
+target/
+dbt_modules/
+dbt_packages/
+
+logs/
+*.log
+
+profiles.yml
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+
+# --- Environment Variables (Secrets) ---
+.env
+.env.*
+
+# --- OS / IDE Files ---
+.DS_Store
+.idea/
+.vscode/
