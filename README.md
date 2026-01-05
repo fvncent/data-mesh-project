@@ -35,7 +35,29 @@ graph TD
     end
     
     CONTRACT --> |Pass/Fail| CI_CD[Governance Check]
-🚀 Key FeaturesInfrastructure as Code (IaC): Complete environment provisioning using Terraform (S3 Buckets, Snowflake Databases, Warehouses, RBAC Roles).Decentralized Compute: Separate Snowflake Warehouses (MARKETING_WH, FINANCE_WH) for strict FinOps cost allocation.Zero-Copy Data Sharing: Finance calculates ROI by joining local revenue data with remote marketing data, without moving or duplicating the marketing tables.Automated Governance: Python-based CI/CD gatekeeper that validates dbt models against a JSON Schema Contract before deployment.Polyglot Pipelines: Integration of Python (Data Generation, Validation), SQL (Snowflake), and Jinja (dbt).🛠️ Tech StackCategoryToolDescriptionCloudAWS (S3, IAM)Storage and Access ManagementWarehouseSnowflakeStandard Edition, utilizing Zero-Copy Cloning & SharingTransformationdbt Core (v1.7+)Data transformation and lineageInfrastructureTerraform (v1.5+)State management and resource provisioningLanguagePython 3.9+Boto3, Snowflake Connector, Faker📂 Repository StructurePlaintextdata-mesh-project/
+```
+## 🚀 Key Features
+
+* **Infrastructure as Code (IaC):** Complete environment provisioning using Terraform (S3 Buckets, Snowflake Databases, Warehouses, RBAC Roles).
+* **Decentralized Compute:** Separate Snowflake Warehouses (`MARKETING_WH`, `FINANCE_WH`) for strict FinOps cost allocation.
+* **Zero-Copy Data Sharing:** Finance calculates ROI by joining local revenue data with remote marketing data, without moving or duplicating the marketing tables.
+* **Automated Governance:** Python-based CI/CD gatekeeper that validates dbt models against a JSON Schema Contract before deployment.
+* **Polyglot Pipelines:** Integration of Python (Data Generation, Validation), SQL (Snowflake), and Jinja (dbt).
+
+## 🛠️ Tech Stack
+
+| Category | Tool | Description |
+| :--- | :--- | :--- |
+| **Cloud** | AWS (S3, IAM) | Storage and Access Management |
+| **Warehouse** | Snowflake | Standard Edition, utilizing Zero-Copy Cloning & Sharing |
+| **Transformation** | dbt Core (v1.7+) | Data transformation and lineage |
+| **Infrastructure** | Terraform (v1.5+) | State management and resource provisioning |
+| **Language** | Python 3.9+ | Boto3, Snowflake Connector, Faker |
+
+## 📂 Repository Structure
+
+```text
+data-mesh-project/
 ├── terraform/                  # IaC for AWS & Snowflake setup
 ├── marketing_domain/           # Producer Logic
 │   ├── dbt/                    # Transformation Logic
@@ -46,19 +68,60 @@ graph TD
 └── governance/                 # Platform Logic
     ├── contracts/              # JSON Schema Definitions
     └── validate_contract.py    # CI/CD Validation Script
-⚡ Quick StartPrerequisitesAWS Account & CLI configuredSnowflake Account (Admin Access)Terraform & dbt installed1. Provision InfrastructureDeploy the "empty shell" of the mesh using Terraform.Bashcd terraform
+```
+##⚡ Quick Start
+
+#Prerequisites
+
+AWS Account & CLI configured
+
+Snowflake Account (Admin Access)
+
+Terraform & dbt installed
+
+#1. Provision Infrastructure
+
+Deploy the "empty shell" of the mesh using Terraform.
+```text
+cd terraform
 terraform init && terraform apply
-2. Build Marketing Domain (Producer)Generate mock click data, ingest it, and create the Data Product.Bash# Generate data
+```
+
+#2. Build Marketing Domain (Producer)
+
+Generate mock click data, ingest it, and create the Data Product.
+```text
 python marketing_domain/generate_clicks.py
-
-# Run SQL ingestion manually in Snowflake (execute content of setup_ingestion.sql)
-# Then run dbt models:
+# Run SQL ingestion manually in Snowflake
 cd marketing_domain/dbt && dbt run
-3. Build Finance Domain (Consumer)Generate transaction data and consume the Marketing product securely.Bash# Generate data
-python finance_domain/generate_transactions.py
+```
 
-# Run SQL ingestion manually in Snowflake (execute content of setup_finance.sql)
-# Then run dbt models:
+#3. Build Finance Domain (Consumer)
+
+Generate transaction data and consume the Marketing product securely.
+```text
+python finance_domain/generate_transactions.py
+# Run SQL ingestion manually in Snowflake
 cd finance_domain/dbt && dbt run
-4. Run Governance CheckVerify that the Marketing Data Product adheres to the contract.Bashpython governance/validate_contract.py
-🛡️ Security & GovernanceThis project enforces the Principle of Least Privilege:Marketing Role: Can only write to MARKETING_DB.Finance Role: Can only write to FINANCE_DB. Read access to Marketing is explicitly granted via RBAC.Contracts: Breaking changes (e.g., column renames) are caught by the validate_contract.py script before they reach production.📝 LicenseThis project is open-source and available under the MIT License.
+```
+
+#4. Run Governance Check
+
+Verify that the Marketing Data Product adheres to the contract.
+```text
+python governance/validate_contract.py
+```
+
+##🛡️ Security & Governance
+
+This project enforces the Principle of Least Privilege:
+
+Marketing Role: Can only write to MARKETING_DB.
+
+Finance Role: Can only write to FINANCE_DB. Read access to Marketing is explicitly granted via RBAC.
+
+Contracts: Breaking changes (e.g., column renames) are caught by the validate_contract.py script before they reach production.
+
+##📝 License
+
+This project is open-source and available under the MIT License.
